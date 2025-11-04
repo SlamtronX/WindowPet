@@ -3,6 +3,7 @@ import Phaser from "phaser";
 import Pets from "./scenes/Pets";
 import { useSettingStore } from "./hooks/useSettingStore";
 import { appWindow } from "@tauri-apps/api/window";
+import ChatBubble from "./components/ChatBubble";
 
 function PhaserWrapper() {
     const phaserDom = useRef<HTMLDivElement>(null);
@@ -74,6 +75,7 @@ function PhaserWrapper() {
     return (
         <>
             <div ref={phaserDom} />
+            <ChatBubble />
         </>
     )
 }
