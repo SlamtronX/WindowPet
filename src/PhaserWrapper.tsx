@@ -21,8 +21,8 @@ function PhaserWrapper() {
 
         window.addEventListener("resize", handleResize);
 
-        // ensure that if component remount user will still be able to touch their screen
-        appWindow.setIgnoreCursorEvents(true);
+        // Don't ignore cursor events so React components can handle clicks
+        // The ChatBubble will use pointerEvents: 'auto' to be interactive
 
         const phaserConfig: Phaser.Types.Core.GameConfig = {
             type: Phaser.AUTO,
@@ -72,9 +72,18 @@ function PhaserWrapper() {
     }, [pets, screenWidth, screenHeight]);
 
     return (
-        <>
-            <div ref={phaserDom} />
-        </>
+        <div
+            ref={phaserDom}
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+                zIndex: 1,
+            }}
+        />
     )
 }
 

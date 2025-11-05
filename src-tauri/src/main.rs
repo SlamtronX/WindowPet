@@ -32,12 +32,12 @@ fn build_app() {
         // uncomment to enable debug logging for development
         // .level(log::LevelFilter::Debug)
         .build())
-        .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
+        /* .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
             println!("{}, {argv:?}, {cwd}", app.package_info().name);
     
             app.emit_all("single-instance", Payload { args: argv, cwd })
                 .unwrap();
-        }))
+        }))*/
         .setup(move |app| {
             let window = app.get_window("main").unwrap();
             window
@@ -56,6 +56,7 @@ fn build_app() {
             conf::combine_config_path,
             cmd::get_mouse_position,
             cmd::open_folder,
+            cmd::chat_with_ai,
             utils::reopen_main_window,
         ])
         .build(tauri::generate_context!())

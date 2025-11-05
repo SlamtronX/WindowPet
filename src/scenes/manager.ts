@@ -275,7 +275,8 @@ export class InputManager {
     public checkIsMouseInOnPet(): void {
         try {
             invoke("get_mouse_position").then((event: any) => {
-                if (this.detectMouseOverPet(event.clientX, event.clientY)) {
+                // Check if mouse is over a pet OR over the chat bubble
+                if (this.detectMouseOverPet(event.clientX, event.clientY) || this.detectMouseOverChatBubble(event.clientX, event.clientY)) {
                     this.turnOffIgnoreCursorEvents();
                     return;
                 }
@@ -340,6 +341,35 @@ export class InputManager {
             );
         } catch (error) {
             console.log("Error in InputManager detectMouseOverPet()", error);
+            return false;
+        }
+    }
+
+    private detectMouseOverChatBubble(clientX: number, clientY: number): boolean {
+        try {
+            // Find the chat bubble element using the data attribute
+            const chatBubbleElement = document.querySelector('[data-chat-bubble="true"]') as HTMLElement;
+
+            if (!chatBubbleElement) {
+                return false;
+            }
+
+            // Check if chat bubble is visible
+            if (chatBubbleElement.style.display === 'none') {
+                return false;
+            }
+
+            const rect = chatBubbleElement.getBoundingClientRect();
+
+            // Check if mouse position is within the chat bubble bounds
+            return (
+                clientX >= rect.left &&
+                clientX <= rect.right &&
+                clientY >= rect.top &&
+                clientY <= rect.bottom
+            );
+        } catch (error) {
+            console.log("Error in InputManager detectMouseOverChatBubble()", error);
             return false;
         }
     }

@@ -6,5 +6,14 @@
     "allowPetClimbing": true,
     "allowAutoStartUp": false,
     "allowOverridePetScale": true,
-    "petScale": 0.7
+    "petScale": 0.7,
+    "ai": {
+        "enabled": true,
+        "provider": "anthropic",
+        "apiKey": "",
+        "model": "claude-3-5-sonnet-20241022",
+        "temperature": 0.7,
+        "maxTokens": 1024,
+        "systemPrompt": "You are a helpful and friendly AI assistant that appears as a cute pet on the user's desktop. Your name is WindowPet. You have access to limited context about the user's current activities. Be concise, friendly, and helpful. Keep responses relatively short unless asked for more detail."
+    }
 }
